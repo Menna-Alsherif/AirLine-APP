@@ -7,8 +7,7 @@
     "test": "mocha"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/mostafa-abdullah/austrian-airlines.git"
+    "type": "git"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
@@ -33,6 +32,6 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mostafa-abdullah/austrian-airlines/issues"
+   
   }
 }
