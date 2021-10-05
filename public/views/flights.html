@@ -1,0 +1,184 @@
+
+
+<link href="css/flights.css" rel="stylesheet">
+
+
+
+<div class="container flights_table_container" ng-controller="flightsController">
+  <link href="css/stepper.css" rel="stylesheet">
+  <div class="mdl-card mdl-shadow--2dp">
+
+    <div class="mdl-card__supporting-text">
+
+      <div class="mdl-stepper-horizontal-alternative">
+        <div class="mdl-stepper-step active-step">
+          <div class="mdl-stepper-circle"><span>1</span></div>
+          <div class="mdl-stepper-title">Select Flight</div>
+          <div class="mdl-stepper-bar-left"></div>
+          <div class="mdl-stepper-bar-right"></div>
+        </div>
+        <div class="mdl-stepper-step">
+          <div class="mdl-stepper-circle"><span>2</span></div>
+          <div class="mdl-stepper-title">Passengers Details</div>
+          <div class="mdl-stepper-bar-left"></div>
+          <div class="mdl-stepper-bar-right"></div>
+        </div>
+        <div class="mdl-stepper-step">
+          <div class="mdl-stepper-circle"><span>3</span></div>
+          <div class="mdl-stepper-title">Confirm Information</div>
+          <div class="mdl-stepper-bar-left"></div>
+          <div class="mdl-stepper-bar-right"></div>
+        </div>
+        <div class="mdl-stepper-step">
+          <div class="mdl-stepper-circle"><span>4</span></div>
+          <div class="mdl-stepper-title">Payment</div>
+          <div class="mdl-stepper-bar-left"></div>
+          <div class="mdl-stepper-bar-right"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <h4 style="color:#7B0A0A">Select your flights</h4>
+  <div class="col s12 m6">
+    <form >
+      <div >
+        <h5 class="flightsHeader"><i class="small material-icons out" >local_airport</i>{{origin}} - {{destination}} - ({{ flightClass }})<div style="float:right; margin-top:21px">{{departureDate}}</div></h5>
+        <div ng-show="outgoingFlights.length == 0" class= "card red darken-1"><h5 class="card-content white-text">Sorry, there are no outgoing flights</h5></div>
+        <div ng-show="outgoingFlights.length != 0">
+          <table class="striped flights_table" >
+            <tr class="th">
+             <th>Flight</th>
+             <th>Price</th>
+             <th></th>
+           </tr >
+           <tr ng-repeat="flight in outgoingFlights">
+            <td>
+              <div class="row" style="margin-bottom: 0px;">
+                <div class="col s2 offset-s2">
+                  <img tooltipped data-position="right" data-delay="50" data-tooltip="{{flight.Airline}}" ng-show = "flight.Airline == airline" class = "logo" src="assets/images/flight-logo.png">
+                  <i tooltipped data-position="right" data-delay="50" data-tooltip="{{flight.Airline}}" ng-hide = "flight.Airline == airline" class="logo small material-icons" >local_airport</i>
+                </div>
+                <div class="col s7 flightTime">
+                  {{flight.departureDateTime}} - {{flight.arrivalDateTime}}
+
+                </div>
+
+                <div class="col s1 show_info flightTime">
+                  <i class="material-icons info-icon" ng-Mouseover = "trans.id = $index" ng-Mouseleave = "trans.id = -1">info_outline
+                  </i>
+
+                </div>
+                <span  class="section full_info" ng-show="trans.id == $index">
+                  <div class="card red darken-1 trans_card">
+                   <div class="card-content white-text">
+                    <div class="panel-heading font15">Flight number: {{flight.flightNumber}}</div>
+                    <div class="divider"></div>
+                    <div class="panel-body font12">{{flight.departureDateTime}} <i class="tiny material-icons">flight_takeoff</i> {{flight.origin}}<br>{{flight.arrivalDateTime}} <i class="tiny material-icons">flight_land</i> {{flight.destination}}<br>Aircraft: {{flight.aircraftType}} {{flight.aircraftModel}}<br> Operated by: {{flight.Airline}}</div>
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td>
+              <div >
+                {{flight.cost}} {{flight.currency}}
+              </div>
+            </td>
+            <td>
+              <div >
+                <input class="check with-gap red info_icon" name="group1" type="radio" id="test6/{{$index}}"  value="{{$index}}" ng-model="info[0]">
+                <label for="test6/{{$index}}"></label>
+              </div>
+            </td>
+      </tr>
+    </table>
+
+    <pagination
+    page="1"
+    page-size="5"
+    total="numPages.outgoing"
+    show-prev-next="false"
+    dots="..."
+    hide-if-empty="true"
+    adjacent="2"
+    scroll-top="false"
+    pagination-action="changePageOutgoing(page)" />
+  </div>
+
+</div>
+<div class ="divider"></div>
+<div ng-show = "tripType == 2">
+  <h5 class="flightsHeader"><i class="small material-icons head1">local_airport</i>{{destination}} - {{origin}} - ({{ flightClass }})<div class="" style="float:right; margin-top: 13px">{{arrivalDate}}</div> </h5>
+  <div ng-show="returnFlights.length == 0" class= "card red darken-1"><h5 class="card-content white-text">Sorry, there are no return flights</h5></div>
+        <div ng-show="returnFlights.length != 0">
+    <table class="striped flights_table">
+      <tr class="thh">
+       <th>Flight</th>
+       <th>Price</th>
+       <th></th>
+     </tr>
+     <tr ng-repeat="flight in returnFlights">
+      <td>
+        <div class="row" style="margin-bottom: 0px;">
+          <div class="col s2 offset-s2">
+            <img tooltipped data-position="right" data-delay="50" data-tooltip="{{flight.Airline}}" ng-show = "flight.Airline == airline" class = "logo" src="assets/images/flight-logo.png">
+            <i tooltipped data-position="right" data-delay="50" data-tooltip="{{flight.Airline}}" ng-hide = "flight.Airline == airline" class="small material-icons out" >local_airport</i>
+
+          </div>
+          <div class="col s7 flightTime">
+            {{flight.departureDateTime}} - {{flight.arrivalDateTime}}
+
+          </div>
+
+          <div class="col s1 show_info flightTime" >
+            <i class="material-icons info_icon" ng-Mouseover = "trans.id = $index+outgoingFlights.length" ng-Mouseleave = "trans.id = -1">info_outline
+            </i>
+
+          </div>
+          <span  class="section full_info" ng-show="trans.id == $index+outgoingFlights.length">
+            <div class="card red darken-1 trans_card " >
+             <div class="card-content white-text">
+              <div class="panel-heading font15">Flight number: {{flight.flightNumber}}</div>
+              <div class="divider"></div>
+              <div class="panel-body font12">{{flight.departureDateTime}} <i class="tiny material-icons">flight_takeoff</i> {{flight.origin}}<br>{{flight.arrivalDateTime}} <i class="tiny material-icons">flight_land</i> {{flight.destination}}<br>Aircraft: {{flight.aircraftType}} {{flight.aircraftModel}}<br> Operated by: {{flight.Airline}}</div>
+            </div>
+          </span>
+        </div>
+      </td>
+       <td>
+              <div >
+                {{flight.cost}} {{flight.currency}}
+              </div>
+            </td>
+            <td>
+              <div >
+                <input class="check with-gap red info_icon" name="group2" type="radio" id="test5/{{$index}}"  value="{{$index}}" ng-model="info[1]">
+                <label for="test5/{{$index}}"></label>
+              </div>
+            </td>
+    </tr>
+  </table>
+  <pagination
+    page="1"
+    page-size="5"
+    total="numPages.return"
+    show-prev-next="false"
+    dots="..."
+    hide-if-empty="true"
+    adjacent="2"
+    scroll-top="false"
+    pagination-action="changePageReturn(page)" />
+</div>
+
+</div>
+<div class="button_div">
+  <a class="waves-effect red darken-4 btn reserve" ng-click="moveForward()" href="">reserve</a>
+</div>
+
+
+</form>
+
+</div>
+</div>

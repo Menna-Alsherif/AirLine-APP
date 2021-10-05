@@ -1,0 +1,82 @@
+.input-field .prefix.active
+{
+	color: #F44336;
+}
+
+.payment-block {
+
+	margin-left:auto;
+	margin-right:auto;
+	min-width:300px;
+	width: 70%;
+	border: 1.5px solid #eeeeee;
+}
+
+.form-header {
+
+	margin-bottom: 20px;
+}
+
+.hr {
+
+	border-color:red;
+}
+
+.book-button {
+
+	width: 100%;
+}
+
+.congratulations {
+
+	margin-top: 20%;
+	margin-left:auto;
+	margin-right:auto;
+	min-width:300px;
+	width: 80%;
+	border: 1.5px solid #eeeeee;
+}
+
+.paragraph {
+
+	margin-left: 3%;
+}
+
+.home-button {
+
+	width: 100%;
+}
+
+.bar {
+
+	min-width: 300px;
+}
+
+.paymentError {
+  color : #b71c1c;
+  font-style: italic;
+  vertical-align: middle;
+	margin-left: 16px;
+  -webkit-transition:all linear 0.5s !important;
+  transition:all linear 0.5s;
+}
+
+.paymentError.ng-hide {
+  opacity:0;
+}
+
+.loading{
+  height: 100%;
+  vertical-align: middle;
+}
+
+.preloader-wrapper.small.active{
+  margin-top: 50%;
+  margin-left: 45%;
+}
+
+#loading-text{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 20px;
+}

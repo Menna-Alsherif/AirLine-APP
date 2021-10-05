@@ -1,0 +1,247 @@
+<link href="../css/confirm.css" rel="stylesheet">
+<link href="../css/passengers.css" rel="stylesheet">
+
+<div class="container" style="margin-bottom: 100px; margin-top: 50px;" ng-controller="confirmationController">
+
+  <link href="css/stepper.css" rel="stylesheet">
+  <div class="mdl-card mdl-shadow--2dp">
+
+    <div class="mdl-card__supporting-text">
+
+      <div class="mdl-stepper-horizontal-alternative">
+        <div class="mdl-stepper-step active-step step-done">
+          <a href="/flights">
+            <div class="mdl-stepper-circle"><span>1</span></div>
+            <div class="mdl-stepper-title">Select Flight</div>
+            <div class="mdl-stepper-bar-left"></div>
+            <div class="mdl-stepper-bar-right"></div>
+          </a>
+        </div>
+        <div class="mdl-stepper-step active-step step-done">
+          <a href="/passengers">
+            <div class="mdl-stepper-circle"><span>2</span></div>
+            <div class="mdl-stepper-title">Passengers Details</div>
+            <div class="mdl-stepper-bar-left"></div>
+            <div class="mdl-stepper-bar-right"></div>
+          </a>
+        </div>
+        <div class="mdl-stepper-step active-step">
+          <div class="mdl-stepper-circle"><span>3</span></div>
+          <div class="mdl-stepper-title">Confirm Information</div>
+          <div class="mdl-stepper-bar-left"></div>
+          <div class="mdl-stepper-bar-right"></div>
+        </div>
+        <div class="mdl-stepper-step">
+          <div class="mdl-stepper-circle"><span>4</span></div>
+          <div class="mdl-stepper-title">Payment</div>
+          <div class="mdl-stepper-bar-left"></div>
+          <div class="mdl-stepper-bar-right"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <ul class= "collection with-header z-depth-3"id="flightsInfo" style="padding: 0px">
+   <li class="collection-header red darken-1"> <h3 class="white-text" > Flight Information </h3></li>
+   <div>
+     <li class="flight-header collection-header  grey lighten-3">
+      <h4>{{outgoingFlight.origin}} - {{outgoingFlight.destination}}</h4>
+      <div class="flight-date">{{departureDate}}</div></li>
+      <div class="row flight-way">
+        <div class="col s10 m6 l3">
+          <p class="flight-info-date">
+            <i class="material-icons schedule-icon" style="margin-right:5px">schedule</i><span>  {{outgoingFlight.departureDateTime}} - {{outgoingFlight.arrivalDateTime}}</span>
+          </p>
+        </div>
+        <div class="col s10 m6 l3">
+          <p class="logo-div">
+             <img tooltipped data-position="right" data-delay="50" data-tooltip="{{outgoingFlight.Airline}}" ng-show = "outgoingFlight.Airline == airline" class = "logo" src="assets/images/flight-logo.png">
+
+              <i tooltipped data-position="right" data-delay="50" data-tooltip="{{outgoingFlight.Airline}}" ng-hide = "outgoingFlight.Airline == airline" class="small material-icons other-airport" >local_airport</i>
+          </p>
+        </div>
+
+        <div class="col s10 m6 l3">
+          <p class="flight-info-data">
+              {{flightClass}}
+          </p>
+        </div>
+        <div class="col s10 m6 l3">
+          <p class="flight-info-data">
+           {{outgoingFlight.cost}} {{outgoingFlight.currency}}
+          </p>
+        </div>
+      </div>
+
+  </div>
+
+  <!-- Return Trip -->
+  <li ng-show ="tripType == 2" class="flight-header collection-header  grey lighten-3">
+    <h4>{{returnFlight.origin}} - {{returnFlight.destination}}</h4>
+    <div class="flight-date">{{arrivalDate}}</div>
+  </li>
+   <div class="row flight-way" ng-show ="tripType == 2" style="">
+        <div class="col s10 m6 l3">
+          <p class="flight-info-date">
+            <i class="material-icons schedule-icon" style="margin-right:5px">schedule</i>  <span>{{returnFlight.departureDateTime}} - {{returnFlight.departureDateTime}}</span>
+          </p>
+        </div>
+        <div class="col s10 m6 l3">
+          <p class="logo-div">
+             <img tooltipped data-position="right" data-delay="50" data-tooltip="{{returnFlight.Airline}}" ng-show = "returnFlight.Airline == airline" class = "logo" src="assets/images/flight-logo.png">
+                  <i tooltipped data-position="right" data-delay="50" data-tooltip="{{returnFlight.Airline}}" ng-hide = "returnFlight.Airline == airline" class="small material-icons other-airport" >local_airport</i>
+          </p>
+        </div>
+
+        <div class="col s10 m6 l3">
+          <p class="flight-info-data">
+             {{flightClass}}
+          </p>
+        </div>
+        <div class="col s10 m6 l3">
+          <p class="flight-info-data">
+            {{returnFlight.cost}} {{returnFlight.currency}}
+          </p>
+        </div>
+      </div>
+
+</ul>
+
+
+
+<ul class="collection with-header  z-depth-3" id="passengerInfo" style="padding: 0px" >
+  <li class="collection-header red darken-1"> <h3 class="white-text"> Passengers Information </h3></li>
+
+  <div class="row">
+    <ul class="collection with-header" ng-repeat="passenger in infoFlow.getPassengers()" ng-hide = "passenger.isChild" >
+     <li class="collection-header  grey lighten-3 "><h4>Passenger- Adult</h4></li>
+     <li  class="collection-item">
+       <div class="container">
+         <div class="row" >
+
+           <div class="col s12 m6">
+             <h4>
+               <i class="material-icons">account_circle</i>
+               First Name</h4>
+               <p style="">
+                {{passenger.firstName}}
+              </p>
+            </div>
+
+            <div class="col s12 m6">
+             <h4>
+               <i class="material-icons">account_circle</i>
+               Last Name</h4>
+               <p style="">
+                {{passenger.lastName}}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m6">
+             <h4>
+               <i class="material-icons">email</i>
+               Email Address</h4>
+               <p style="">
+                {{passenger.email}}
+              </p>
+            </div>
+            <div class="col s12 m6">
+             <h4>
+               <i class="material-icons">pan_tool</i>
+               Passport Number</h4>
+               <p style="">
+                {{passenger.passportNum}}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m6">
+             <h4>
+               <i class="material-icons">location_on</i>
+               Nationality</h4>
+               <p style="">
+                {{passenger.nationality}}
+              </p>
+            </div>
+            <div class="col s12 m6" ng-show = "passenger.dateOfBirth">
+             <h4>
+               <i class="material-icons">today</i>
+               Birth Date</h4>
+               <p style="">
+                {{passenger.dateOfBirth}}
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+
+
+  <ul class="collection with-header" ng-repeat="passenger in infoFlow.getPassengers()" ng-show = "passenger.isChild" >
+   <li class="collection-header  grey lighten-3 " ><h4>Passenger- Child</h4></li>
+   <li  class="collection-item">
+     <div class="container">
+       <div class="row" >
+
+         <div class="col s12 m6">
+           <h4>
+             <i class="material-icons">account_circle</i>
+             First Name</h4>
+             <p style="margin-left: 30px">
+              {{passenger.firstName}}
+            </p>
+          </div>
+
+          <div class="col s12 m6">
+           <h4>
+             <i class="material-icons">account_circle</i>
+             Last Name</h4>
+             <p style="margin-left: 30px">
+              {{passenger.lastName}}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6">
+           <h4>
+             <i class="material-icons">pan_tool</i>
+             Passport Number</h4>
+             <p style="margin-left: 30px">
+              {{passenger.passportNum}}
+            </p>
+          </div>
+           <div class="col s12 m6">
+           <h4>
+             <i class="material-icons">today</i>
+             Birth Date</h4>
+             <p style="margin-left: 30px">
+              {{passenger.dateOfBirth}}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6">
+           <h4>
+             <i class="material-icons">location_on</i>
+             Nationality</h4>
+             <p style="margin-left: 30px">
+              {{passenger.nationality}}
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </li>
+  </ul>
+  </ul>
+  <button ng-click="confirm()" id="confirmInfo"class="btn waves-effect waves-light red darken-2" type="submit" name="action"> Confirm
+  </button>
+</div>
+</ul>
+</div>
